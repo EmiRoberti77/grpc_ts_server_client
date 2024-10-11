@@ -32,7 +32,9 @@ function getServer(): gRPC.Server {
   const server = new gRPC.Server();
   server.addService(randomPackage.Ramdom.service, {
     PingPong: (req, res) => {
-      console.log(req, res);
+      console.log("PingPong");
+      console.log(req.request);
+      res(null, { message: "Pong" });
     },
   } as RamdomHandlers);
   return server;
