@@ -38,4 +38,20 @@ function onClientReady() {
       console.log(result);
     }
   );
+
+  const metadata = new gRPC.Metadata();
+  const call = client.RandomNumbers(metadata);
+
+  call.write({ maxVal: 85 });
+  call.write({ maxVal: 100 });
+  call.write({ maxVal: 2 });
+  //call.end();
+
+  call.on("data", (chunk) => {
+    console.log(chunk);
+  });
+  call.on("end", () => {
+    console.log("comunication stopped");
+    call.end();
+  });
 }
